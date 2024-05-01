@@ -4,6 +4,8 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+  // useState
+
   const [count, setCount] = useState(
     localStorage.getItem("lemons") == null ? 0 : localStorage.getItem("lemons")
   );
@@ -13,10 +15,14 @@ function App() {
       ? 0
       : localStorage.getItem("lemonHarvestLevel")
   );
+  const [lemonHarvestUpgradePrice, setLemonHarvestUpgradePrice] = useState(500);
+
+  // useEffect
+
   useEffect(() => {
     localStorage.setItem("lemons", String(count));
     localStorage.setItem("lemonHarvestLevel", lemonHarvestLevel);
-    setHarvestAmount(1 + lemonHarvestLevel); // More additions to harvest amount later
+    setHarvestAmount(1 + Number(lemonHarvestLevel)); // More additions to harvest amount later
 
     console.log(harvestAmount);
     console.log(lemonHarvestLevel);
@@ -35,21 +41,24 @@ function App() {
             setCount((count) => Number(count) + Number(harvestAmount));
           }}
         >
-          count is {count}
+          Harvest Lemons
         </button>
         <button
           onClick={() => {
-            if (count < 500) return;
+            if (count < lemonHarvestUpgradePrice) return;
             setLemonHarvestLevel(Number(lemonHarvestLevel) + 1);
             console.log(
               "I SET THE SILLY LEVEL TO " + lemonHarvestLevel + "+" + 1
             );
-            setCount((count) => Number(count) - 500);
+            setCount((count) => Number(count) - lemonHarvestUpgradePrice);
+            useEffect(
+              setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 250)
+            );
           }}
         >
-          Upgrade Lemon Harvest (500)
+          Upgrade Lemon Harvest ({lemonHarvestUpgradePrice})
         </button>
-        <p>You're Getting {harvestAmount} Lemons Per Click</p>
+        <p>You're Getting {harvestAmount} Lemons Per Harvest</p>
       </div>
       <p
         onClick={() => {
@@ -58,7 +67,7 @@ function App() {
         }}
         className="read-the-docs"
       >
-        Click here to reset (You Made It NaN Again Didn't You?)
+        Click here to reset your progress
       </p>
     </>
   );
