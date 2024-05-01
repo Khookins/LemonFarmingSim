@@ -15,18 +15,38 @@ function App() {
       ? 0
       : localStorage.getItem("lemonHarvestLevel")
   );
-  const [lemonHarvestUpgradePrice, setLemonHarvestUpgradePrice] = useState(500);
+  const [lemonHarvestUpgradePrice, setLemonHarvestUpgradePrice] = useState(
+    localStorage.getItem("lemonHarvestUpgradePrice") == null
+      ? 500
+      : localStorage.getItem("lemonHarvestUpgradePrice")
+  );
 
   // useEffect
 
   useEffect(() => {
     localStorage.setItem("lemons", String(count));
     localStorage.setItem("lemonHarvestLevel", lemonHarvestLevel);
+    localStorage.setItem("lemonHarvestUpgradePrice", lemonHarvestUpgradePrice);
     setHarvestAmount(1 + Number(lemonHarvestLevel)); // More additions to harvest amount later
 
     console.log(harvestAmount);
     console.log(lemonHarvestLevel);
   }, [lemonHarvestLevel]);
+
+  function changeUpgradePrice() {
+    if (lemonHarvestUpgradePrice >= 1500 && lemonHarvestUpgradePrice < 2000) {
+      setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 500);
+    } else if (
+      lemonHarvestUpgradePrice >= 2000 &&
+      lemonHarvestUpgradePrice < 5000
+    ) {
+      setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 1000);
+    } else if (lemonHarvestUpgradePrice >= 5000) {
+      setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 5000);
+    } else {
+      setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 250);
+    }
+  }
 
   return (
     <>
@@ -51,9 +71,7 @@ function App() {
               "I SET THE SILLY LEVEL TO " + lemonHarvestLevel + "+" + 1
             );
             setCount((count) => Number(count) - lemonHarvestUpgradePrice);
-            useEffect(
-              setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 250)
-            );
+            useEffect(changeUpgradePrice());
           }}
         >
           Upgrade Lemon Harvest ({lemonHarvestUpgradePrice})
