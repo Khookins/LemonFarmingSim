@@ -1,4 +1,4 @@
 [[redirects]]
-from = "time-waster-game"
+from = "/*"
 to = "/index.html"
 status = 200
