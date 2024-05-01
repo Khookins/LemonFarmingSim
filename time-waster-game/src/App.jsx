@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import buyingSFX from "./assets/Buying Sound Effect.mp3";
 import "./App.css";
 
 function App() {
-  // useState
+  // vars and stuff
 
+  // useState
   const [count, setCount] = useState(
     localStorage.getItem("lemons") == null ? 0 : localStorage.getItem("lemons")
   );
@@ -22,7 +23,6 @@ function App() {
   );
 
   // useEffect
-
   useEffect(() => {
     localStorage.setItem("lemons", String(count));
     localStorage.setItem("lemonHarvestLevel", lemonHarvestLevel);
@@ -31,9 +31,9 @@ function App() {
 
     console.log(harvestAmount);
     console.log(lemonHarvestLevel);
-  }, [lemonHarvestLevel]);
+  }, [count]);
 
-  function changeUpgradePrice() {
+  function changeUpgradePrice(lemonHarvestUpgradePrice) {
     if (lemonHarvestUpgradePrice >= 1500 && lemonHarvestUpgradePrice < 2000) {
       setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 500);
     } else if (
@@ -46,6 +46,9 @@ function App() {
     } else {
       setLemonHarvestUpgradePrice(lemonHarvestUpgradePrice + 250);
     }
+  }
+  function playBuySound() {
+    new Audio(buyingSFX).play();
   }
 
   return (
@@ -71,7 +74,10 @@ function App() {
               "I SET THE SILLY LEVEL TO " + lemonHarvestLevel + "+" + 1
             );
             setCount((count) => Number(count) - lemonHarvestUpgradePrice);
-            useEffect(changeUpgradePrice());
+            changeUpgradePrice(Number(lemonHarvestUpgradePrice));
+            useEffect(() => {
+              playBuySound(audio);
+            });
           }}
         >
           Upgrade Lemon Harvest ({lemonHarvestUpgradePrice})
