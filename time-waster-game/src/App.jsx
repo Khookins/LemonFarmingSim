@@ -31,7 +31,13 @@ function App() {
 
     console.log(harvestAmount);
     console.log(lemonHarvestLevel);
-  }, [count]);
+  }, [count, lemonHarvestLevel, lemonHarvestUpgradePrice]);
+  useEffect(() => {
+    if (lemonHarvestLevel == 25) {
+      setLemonHarvestUpgradePrice("MAX");
+      return;
+    }
+  }, [lemonHarvestLevel]);
 
   function changeUpgradePrice(lemonHarvestUpgradePrice) {
     if (lemonHarvestUpgradePrice >= 1500 && lemonHarvestUpgradePrice < 2000) {
@@ -69,10 +75,6 @@ function App() {
         <button
           onClick={() => {
             if (count < lemonHarvestUpgradePrice) return;
-            if (lemonHarvestLevel == 24) {
-              setLemonHarvestUpgradePrice("MAX");
-              return;
-            }
             setLemonHarvestLevel(Number(lemonHarvestLevel) + 1);
             console.log(
               "I SET THE SILLY LEVEL TO " + lemonHarvestLevel + "+" + 1
