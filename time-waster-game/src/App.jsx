@@ -69,6 +69,10 @@ function App() {
         <button
           onClick={() => {
             if (count < lemonHarvestUpgradePrice) return;
+            if (lemonHarvestLevel == 24) {
+              setLemonHarvestUpgradePrice("MAX");
+              return;
+            }
             setLemonHarvestLevel(Number(lemonHarvestLevel) + 1);
             console.log(
               "I SET THE SILLY LEVEL TO " + lemonHarvestLevel + "+" + 1
