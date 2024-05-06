@@ -67,7 +67,7 @@ function App() {
         ); //save using updated price
 
         //finally, set the new harvest amount, which will trigger a re-render
-        setHarvestAmount(500000 + Number(lemonHarvestLevel)); // More additions to harvest amount later
+        setHarvestAmount(1 + Number(lemonHarvestLevel)); // More additions to harvest amount later
     }, [lemonHarvestLevel]);
 
     function changeUpgradePrice(oldUpgradePrice) {
