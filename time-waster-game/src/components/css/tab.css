@@ -4,6 +4,7 @@
     background-color: #1a1a1a;
     cursor: default;
     flex: 1;
+    user-select: none;
 
     transition-property: color, background-color;
     transition-duration: 150ms;
@@ -15,4 +16,8 @@
 
     transition-property: color, background-color;
     transition-duration: 150ms;
+}
+.tab:hover:active {
+    background-color: lightgoldenrodyellow;
+    border: lightgoldenrodyellow;
 }

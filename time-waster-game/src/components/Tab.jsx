@@ -8,7 +8,8 @@ function Tab(props) {
         <div
             className="tab"
             onClick={() => {
-                alert("Tab Button Clicked! " + props.text);
+                if (props.text == "Home") return;
+                alert("This Is A Feature Not Added Yet (" + props.text + ")");
             }}
         >
             {props.text}
