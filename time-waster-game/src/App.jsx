@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import reactLogo from "./assets/react.svg";
 import buyingSFX from "./assets/Buying Sound Effect.mp3";
 import "./App.css";
+import Tabber from "./components/Tabber.jsx";
+import Home from "./components/pages/Home.jsx";
 
 function App() {
     // vars and stuff
@@ -81,60 +83,35 @@ function App() {
             setLemonHarvestUpgradePrice(oldUpgradePrice + 250);
         }
     }
-    function playBuySound() {
-        new Audio(buyingSFX).play();
-    }
+    // KeyListener
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+            console.log(e);
+            if (e.key == "L") {
+                setCount(Number(count) + 1000000);
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyPress);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        };
+    }, [count]);
 
     return (
         <>
-            <div></div>
-            <h1>{"Your Lemons: " + count}</h1>
-            <div className="card">
-                <button
-                    onClick={() => {
-                        console.log(
-                            "I COUNTING " +
-                                count +
-                                " AND SILLY NUMBER " +
-                                harvestAmount
-                        );
-                        setCount(
-                            (count) => Number(count) + Number(harvestAmount)
-                        );
-                    }}
-                >
-                    Harvest Lemons
-                </button>
-                <button
-                    onClick={() => {
-                        if (count < lemonHarvestUpgradePrice) return;
-                        if (lemonHarvestUpgradePrice == "MAX") return;
-                        setLemonHarvestLevel(Number(lemonHarvestLevel) + 1);
-                        console.log(
-                            "I SET THE SILLY LEVEL TO " +
-                                lemonHarvestLevel +
-                                "+" +
-                                1
-                        );
-                        setCount(
-                            (count) => Number(count) - lemonHarvestUpgradePrice
-                        );
-                        playBuySound(audio);
-                    }}
-                >
-                    Upgrade Lemon Harvest ({lemonHarvestUpgradePrice})
-                </button>
-                <p>You're Getting {harvestAmount} Lemons Per Harvest</p>
-            </div>
-            <p
-                onClick={() => {
-                    localStorage.clear();
-                    location.reload();
-                }}
-                className="read-the-docs"
-            >
-                Click here to reset your progress
-            </p>
+            <Home
+                count={count}
+                setCount={setCount}
+                harvestAmount={harvestAmount}
+                setHarvestAmount={setHarvestAmount}
+                lemonHarvestLevel={lemonHarvestLevel}
+                setLemonHarvestLevel={setLemonHarvestLevel}
+                lemonHarvestUpgradePrice={lemonHarvestUpgradePrice}
+                setLemonHarvestUpgradePrice={setLemonHarvestUpgradePrice}
+            ></Home>
+            <Tabber></Tabber>
         </>
     );
 }

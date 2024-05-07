@@ -1,0 +1,18 @@
+.tab {
+    border: 1px solid yellow;
+    color: yellow;
+    background-color: #1a1a1a;
+    cursor: default;
+    flex: 1;
+
+    transition-property: color, background-color;
+    transition-duration: 150ms;
+}
+
+.tab:hover {
+    background-color: khaki;
+    color: #1a1a1a;
+
+    transition-property: color, background-color;
+    transition-duration: 150ms;
+}

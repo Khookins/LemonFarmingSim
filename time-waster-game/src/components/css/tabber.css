@@ -1,0 +1,7 @@
+.tabber {
+    display: flex;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
