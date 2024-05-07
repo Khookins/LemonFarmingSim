@@ -61,12 +61,11 @@ function Home({
             </div>
             <p
                 onClick={() => {
-                    localStorage.clear();
-                    location.reload();
+                    alert("Press R To Reset Progress!");
                 }}
                 className="read-the-docs"
             >
-                Click here to reset your progress
+                Press (R) To Reset Your Progress
             </p>
         </>
     );

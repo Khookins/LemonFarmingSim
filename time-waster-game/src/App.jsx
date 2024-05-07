@@ -4,6 +4,7 @@ import buyingSFX from "./assets/Buying Sound Effect.mp3";
 import "./App.css";
 import Tabber from "./components/Tabber.jsx";
 import Home from "./components/pages/Home.jsx";
+import LemonCounter from "./components/LemonCounter.jsx";
 
 function App() {
     // vars and stuff
@@ -89,6 +90,9 @@ function App() {
             console.log(e);
             if (e.key == "L") {
                 setCount(Number(count) + 1000000);
+            } else if (e.key == "r") {
+                localStorage.clear();
+                location.reload();
             }
         };
 
@@ -112,6 +116,7 @@ function App() {
                 setLemonHarvestUpgradePrice={setLemonHarvestUpgradePrice}
             ></Home>
             <Tabber></Tabber>
+            <LemonCounter lemons={count}></LemonCounter>
         </>
     );
 }

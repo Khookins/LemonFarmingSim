@@ -19,5 +19,5 @@
 }
 .tab:hover:active {
     background-color: lightgoldenrodyellow;
-    border: lightgoldenrodyellow;
+    border: 1px solid lightgoldenrodyellow;
 }

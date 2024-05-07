@@ -1,0 +1,13 @@
+.lemonCounter {
+    border: 1px solid yellow;
+    color: yellow;
+    background-color: #1a1a1a;
+    cursor: default;
+    flex: 1;
+    user-select: none;
+    display: block;
+    width: 99.9%;
+    position: absolute;
+    left: 0;
+    bottom: 677px;
+}
