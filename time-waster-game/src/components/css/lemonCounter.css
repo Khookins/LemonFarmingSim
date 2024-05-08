@@ -6,8 +6,9 @@
     flex: 1;
     user-select: none;
     display: block;
-    width: 99.9%;
+    width: 100%;
     position: absolute;
     left: 0;
-    bottom: 677px;
+    top: 0;
+    box-sizing: border-box;
 }

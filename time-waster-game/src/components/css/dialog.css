@@ -1,0 +1,39 @@
+.confirmationDialog {
+    border: 2px solid yellow;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    width: 600px;
+    height: auto;
+    position: absolute;
+    font-size: xx-large;
+    color: yellow;
+    left: calc(50% - 300px);
+    top: 30%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.confirmationDialog button {
+    outline: 1px solid yellow;
+    border: 1px solid yellow;
+    border-radius: 4px;
+    font-size: medium;
+
+    bottom: 0;
+    margin: 8px;
+}
+.confirmationDialog button:hover {
+    outline: 1px solid yellow;
+    background-color: khaki;
+    color: #1a1a1a;
+    transition-property: background-color, color;
+    transition-duration: 150ms;
+}
+.confirmationDialog .buttonContainer {
+    justify-content: flex-end;
+    margin-top: auto;
+}
+.confirmationDialog p {
+    font-size: large;
+}

@@ -1,19 +1,11 @@
 import React from "react";
-import Tab from "./Tab";
+import Tab from "./sub-components/Tab";
 import "./css/tabber.css";
 
 const styles = {};
 
-function Tabber() {
-    return (
-        <div className="tabber">
-            <Tab text={"Home"}></Tab>
-            <Tab text={"Auto Harvesting"}></Tab>
-            <Tab text={"Investments"}></Tab>
-            <Tab text={"Acheivements"}></Tab>
-            <Tab text={"Settings"}></Tab>
-        </div>
-    );
+function Tabber(props) {
+    return <div className="tabber">{props.children}</div>;
 }
 
 export default Tabber;

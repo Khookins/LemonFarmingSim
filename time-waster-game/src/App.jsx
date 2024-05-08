@@ -3,8 +3,10 @@ import reactLogo from "./assets/react.svg";
 import buyingSFX from "./assets/Buying Sound Effect.mp3";
 import "./App.css";
 import Tabber from "./components/Tabber.jsx";
+import Tab from "./components/sub-components/Tab.jsx";
 import Home from "./components/pages/Home.jsx";
 import LemonCounter from "./components/LemonCounter.jsx";
+import ConfirmationDialog from "./components/sub-components/ConfirmationDialog.jsx";
 
 function App() {
     // vars and stuff
@@ -21,6 +23,7 @@ function App() {
             ? 0
             : localStorage.getItem("lemonHarvestLevel")
     );
+    const [resetDialogVisible, setResetDialogVisible] = useState(false);
 
     //let's useRef for upgrade price, because it gets updated in useEffect and doesn't need to trigger a re-render
     //useRef is like saying "this is a variable that doesn't trigger a re-render when it changes, but it can still be accessed and changed from anywhere in the component"
@@ -90,9 +93,6 @@ function App() {
             console.log(e);
             if (e.key == "L") {
                 setCount(Number(count) + 1000000);
-            } else if (e.key == "r") {
-                localStorage.clear();
-                location.reload();
             }
         };
 
@@ -102,6 +102,11 @@ function App() {
             document.removeEventListener("keydown", handleKeyPress);
         };
     }, [count]);
+
+    window.onload = () => {
+        const BackgroundAudio = new Audio("./assets/llaml.mp3");
+        BackgroundAudio.play();
+    };
 
     return (
         <>
@@ -115,8 +120,36 @@ function App() {
                 lemonHarvestUpgradePrice={lemonHarvestUpgradePrice}
                 setLemonHarvestUpgradePrice={setLemonHarvestUpgradePrice}
             ></Home>
-            <Tabber></Tabber>
+            <Tabber>
+                <Tab text={"Home"}></Tab>
+                <Tab text={"Auto Harvesting"}></Tab>
+                <Tab text={"Investments"}></Tab>
+                <Tab text={"Acheivements"}></Tab>
+                <Tab
+                    text={"Settings"}
+                    onClick={() => {
+                        setResetDialogVisible(!resetDialogVisible);
+                    }}
+                ></Tab>
+            </Tabber>
             <LemonCounter lemons={count}></LemonCounter>
+            {resetDialogVisible && (
+                <ConfirmationDialog
+                    msg={"Reset Progress?"}
+                    dialog={
+                        "Resetting will permanently remove all your Lemons, Auto Harvesters, Harvesting Levels, Multipliers, current bought Stocks, but will keep all Achievements."
+                    }
+                    cancelMsg={"No! I Want To Keep My Lemons!"}
+                    confirmMsg={"Yes, Reset All My Lemons."}
+                    onCancel={() => {
+                        setResetDialogVisible(false);
+                    }}
+                    onConfirm={() => {
+                        localStorage.clear();
+                        location.reload();
+                    }}
+                ></ConfirmationDialog>
+            )}
         </>
     );
 }

@@ -59,14 +59,7 @@ function Home({
                     {harvestAmount > 1 ? "s" : null} Per Harvest
                 </p>
             </div>
-            <p
-                onClick={() => {
-                    alert("Press R To Reset Progress!");
-                }}
-                className="read-the-docs"
-            >
-                Press (R) To Reset Your Progress
-            </p>
+            <p className="read-the-docs">Go To Settings To Reset Progress</p>
         </>
     );
 }
