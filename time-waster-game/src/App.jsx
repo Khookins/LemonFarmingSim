@@ -1,6 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import reactLogo from "./assets/react.svg";
-import buyingSFX from "./assets/Buying Sound Effect.mp3";
 import "./App.css";
 import Tabber from "./components/Tabber.jsx";
 import Tab from "./components/sub-components/Tab.jsx";

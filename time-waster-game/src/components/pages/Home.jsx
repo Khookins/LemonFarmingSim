@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import buyingSFX from "../../assets/Buying Sound Effect.mp3";
+import buyingSFX from "../../assets/audio/Buying Sound Effect.mp3";
+import lemonSFX from "../../assets/audio/lemon (edited).mp3";
 
 function Home({
     count,
@@ -11,8 +12,11 @@ function Home({
     lemonHarvestUpgradePrice,
     setLemonHarvestUpgradePrice,
 }) {
-    function playBuySound() {
-        new Audio(buyingSFX).play();
+    const buyingAudio = new Audio(buyingSFX);
+    const lemonAudio = new Audio(lemonSFX);
+
+    function playAudio(audio) {
+        audio.play();
     }
 
     return (
@@ -31,6 +35,7 @@ function Home({
                         setCount(
                             (count) => Number(count) + Number(harvestAmount)
                         );
+                        playAudio(lemonAudio);
                     }}
                 >
                     Harvest Lemons
@@ -49,7 +54,7 @@ function Home({
                         setCount(
                             (count) => Number(count) - lemonHarvestUpgradePrice
                         );
-                        playBuySound(audio);
+                        playAudio(buyingAudio);
                     }}
                 >
                     Upgrade Lemon Harvest ({lemonHarvestUpgradePrice})
