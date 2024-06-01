@@ -1,3 +1,4 @@
+import { Howl, Howler } from "howler";
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import Tabber from "./components/Tabber.jsx";
@@ -5,9 +6,12 @@ import Tab from "./components/sub-components/Tab.jsx";
 import Home from "./components/pages/Home.jsx";
 import LemonCounter from "./components/LemonCounter.jsx";
 import ConfirmationDialog from "./components/sub-components/ConfirmationDialog.jsx";
+import lemonBGM from "./assets/audio/llaml.mp3";
 
 function App() {
     // vars and stuff
+
+    const lemonMusic = new Howl({ src: lemonBGM, preload: true, loop: true });
 
     // useState
     const [count, setCount] = useState(
@@ -15,13 +19,14 @@ function App() {
             ? 0
             : localStorage.getItem("lemons")
     );
-    const [harvestAmount, setHarvestAmount] = useState(1);
+    const [harvestAmount, setHarvestAmount] = useState(0);
     const [lemonHarvestLevel, setLemonHarvestLevel] = useState(
         localStorage.getItem("lemonHarvestLevel") == null
-            ? 0
+            ? 1
             : localStorage.getItem("lemonHarvestLevel")
     );
     const [resetDialogVisible, setResetDialogVisible] = useState(false);
+    const [musicDialogVisible, setMusicDialogVisible] = useState(true);
 
     //let's useRef for upgrade price, because it gets updated in useEffect and doesn't need to trigger a re-render
     //useRef is like saying "this is a variable that doesn't trigger a re-render when it changes, but it can still be accessed and changed from anywhere in the component"
@@ -47,7 +52,7 @@ function App() {
     useEffect(() => {
         var updatePrice = false; // let's check if the price needs to be updated
         const oldLevel = Number(localStorage.getItem("lemonHarvestLevel"));
-        if (oldLevel != lemonHarvestLevel) {
+        if (oldLevel != lemonHarvestLevel && oldLevel > 0) {
             updatePrice = true;
             console.log("LemonHarvestLevel changed! " + lemonHarvestLevel);
         } else {
@@ -71,7 +76,7 @@ function App() {
         ); //save using updated price
 
         //finally, set the new harvest amount, which will trigger a re-render
-        setHarvestAmount(1 + Number(lemonHarvestLevel)); // More additions to harvest amount later
+        setHarvestAmount(Number(lemonHarvestLevel)); // More additions to harvest amount later
     }, [lemonHarvestLevel]);
 
     function changeUpgradePrice(oldUpgradePrice) {
@@ -127,6 +132,7 @@ function App() {
                     text={"Settings"}
                     onClick={() => {
                         setResetDialogVisible(!resetDialogVisible);
+                        setMusicDialogVisible(false);
                     }}
                 ></Tab>
             </Tabber>
@@ -145,6 +151,24 @@ function App() {
                     onConfirm={() => {
                         localStorage.clear();
                         location.reload();
+                    }}
+                ></ConfirmationDialog>
+            )}
+            {musicDialogVisible && (
+                <ConfirmationDialog
+                    msg={"Enable Music?"}
+                    dialog={
+                        "This Will Enable Background Music (This Can Be Changed In The Settings Later On)"
+                    }
+                    cancelMsg={"No, I Don't Want To Play Music"}
+                    confirmMsg={"Yes, I Want To Play Music"}
+                    onCancel={() => {
+                        setMusicDialogVisible(false);
+                    }}
+                    onConfirm={() => {
+                        lemonMusic.stop();
+                        lemonMusic.play();
+                        setMusicDialogVisible(false);
                     }}
                 ></ConfirmationDialog>
             )}
