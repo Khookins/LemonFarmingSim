@@ -7,6 +7,7 @@ import Home from "./components/pages/Home.jsx";
 import LemonCounter from "./components/LemonCounter.jsx";
 import ConfirmationDialog from "./components/sub-components/ConfirmationDialog.jsx";
 import lemonBGM from "./assets/audio/llaml.mp3";
+import Achievements from "./components/pages/Achievements.jsx";
 
 function App() {
     // vars and stuff
@@ -35,6 +36,7 @@ function App() {
             ? 500
             : localStorage.getItem("lemonHarvestUpgradePrice")
     );
+    const [currentPage, setCurrentPage] = useState("Home");
 
     useEffect(() => {
         //useEffect when count changes
@@ -113,21 +115,34 @@ function App() {
 
     return (
         <>
-            <Home
-                count={count}
-                setCount={setCount}
-                harvestAmount={harvestAmount}
-                setHarvestAmount={setHarvestAmount}
-                lemonHarvestLevel={lemonHarvestLevel}
-                setLemonHarvestLevel={setLemonHarvestLevel}
-                lemonHarvestUpgradePrice={lemonHarvestUpgradePrice}
-                setLemonHarvestUpgradePrice={setLemonHarvestUpgradePrice}
-            ></Home>
+            {currentPage == "Home" && (
+                <Home
+                    count={count}
+                    setCount={setCount}
+                    harvestAmount={harvestAmount}
+                    setHarvestAmount={setHarvestAmount}
+                    lemonHarvestLevel={lemonHarvestLevel}
+                    setLemonHarvestLevel={setLemonHarvestLevel}
+                    lemonHarvestUpgradePrice={lemonHarvestUpgradePrice}
+                    setLemonHarvestUpgradePrice={setLemonHarvestUpgradePrice}
+                ></Home>
+            )}
+            {currentPage == "Achievements" && <Achievements></Achievements>}
             <Tabber>
-                <Tab text={"Home"}></Tab>
+                <Tab
+                    text={"Home"}
+                    onClick={() => {
+                        setCurrentPage("Home");
+                    }}
+                ></Tab>
                 <Tab text={"Auto Harvesting"}></Tab>
                 <Tab text={"Investments"}></Tab>
-                <Tab text={"Acheivements"}></Tab>
+                <Tab
+                    text={"Acheivements"}
+                    onClick={() => {
+                        setCurrentPage("Achievements");
+                    }}
+                ></Tab>
                 <Tab
                     text={"Settings"}
                     onClick={() => {
